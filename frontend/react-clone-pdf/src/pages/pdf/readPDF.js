@@ -1,18 +1,16 @@
 import React, { useState } from "react";
 import { Button, LinearProgress } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
-import "@react-pdf-viewer/core/lib/styles/index.css";
-import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 import useRememberMe from "../../service/rememberMe";
 import NavBar from "../../components/navbar";
 import Footer from "../../components/footer";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import { MuiFileInput } from "mui-file-input";
 import { Viewer } from "@react-pdf-viewer/core";
-import "@react-pdf-viewer/core/lib/styles/index.css";
+import { Worker } from "@react-pdf-viewer/core";
 import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
-import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 import "@react-pdf-viewer/core/lib/styles/index.css";
+import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 
 export default function ReadPDF() {
   useRememberMe();
@@ -20,11 +18,11 @@ export default function ReadPDF() {
   const defaultLayoutPluginInstance = defaultLayoutPlugin();
 
   const {
-    register,
     control,
     formState: { errors },
     handleSubmit,
   } = useForm();
+
   const [pdfFile, setPDFFile] = useState(null);
   const [pdfUrl, setPdfUrl] = useState("");
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -41,10 +39,12 @@ export default function ReadPDF() {
   };
 
   const handleFileUpload = () => {
-    if (!pdfFile) {
-      setError("Please select a PDF file.");
-      return;
-    }
+    setError(null); // Reset the error state
+
+  if (!pdfFile) {
+    setError("Please select a PDF file.");
+    return;
+  }
 
     const reader = new FileReader();
 
@@ -69,7 +69,6 @@ export default function ReadPDF() {
 
   const onSubmit = (data) => {
     console.log(data);
-    // Handle form submission
   };
 
   return (
@@ -85,12 +84,6 @@ export default function ReadPDF() {
               <Controller
                 name="pdfFile"
                 control={control}
-                rules={{
-                  required: "Select a PDF.",
-                  validate: (value) =>
-                    value[0]?.type === "application/pdf" ||
-                    "Only PDF files are allowed.",
-                }}
                 render={({ field }) => (
                   <MuiFileInput
                     {...field}
@@ -119,19 +112,35 @@ export default function ReadPDF() {
               </Button>
             </div>
           </div>
-          <div className="flex mx-5 italic justify-center">
-            Tip: Since, all your files are processed locally, smaller files are
+          {!pdfFile && error && (
+            <span className="flex justify-around text-red-500 text-sm mx-5">{error}</span>
+          )}
+          <div className="flex mt-2 mx-5 italic justify-center">
+            Tip: Since all your files are processed locally, smaller files are
             processed faster.
           </div>
         </form>
       </div>
-      <div className="p-10 m-5 shadow">
+      <div className="md:pt-10 md:mt-5 md:px-10 md:mx-5 mx-6 mt-5 shadow">
         {uploadProgress > 0 && (
           <LinearProgress variant="determinate" value={uploadProgress} />
         )}
         {pdfUrl && (
-          <div style={{ height: "100vh" }}>
-            <Viewer fileUrl={pdfUrl} plugins={[defaultLayoutPluginInstance]} />
+          <div className="" style={{ height: "100vh" }}>
+            <Worker workerUrl="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js">
+              <div
+                style={{
+                  height: "calc(100vh - 200px)", // Adjust the height as needed
+                  maxWidth: "100%",
+                  margin: "0 auto",
+                }}
+              >
+                <Viewer
+                  fileUrl={pdfUrl}
+                  plugins={[defaultLayoutPluginInstance]}
+                />
+              </div>
+            </Worker>
           </div>
         )}
       </div>
