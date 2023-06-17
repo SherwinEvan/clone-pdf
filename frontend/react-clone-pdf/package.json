@@ -1,0 +1,56 @@
+{
+  "name": "react-clone-pdf",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@mui/icons-material": "^5.11.9",
+    "@mui/material": "^5.11.10",
+    "@mui/styled-engine-sc": "^5.11.9",
+    "@react-pdf-viewer/core": "^3.12.0",
+    "@react-pdf-viewer/default-layout": "^3.12.0",
+    "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.3.4",
+    "localforage": "^1.10.0",
+    "match-sorter": "^6.3.1",
+    "mui-file-input": "^2.0.0",
+    "pdfjs-dist": "^3.7.107",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.43.9",
+    "react-pdf": "^7.0.3",
+    "react-router-dom": "^6.8.1",
+    "react-scripts": "5.0.1",
+    "react-toastify": "^9.1.1",
+    "sort-by": "^1.2.0",
+    "styled-components": "^5.3.6",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.2",
+    "worker-loader": "^3.0.8"
+  }
+}
