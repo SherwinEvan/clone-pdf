@@ -18,11 +18,11 @@ export default function ReadPDF() {
   const defaultLayoutPluginInstance = defaultLayoutPlugin();
 
   const {
-    register,
     control,
     formState: { errors },
     handleSubmit,
   } = useForm();
+
   const [pdfFile, setPDFFile] = useState(null);
   const [pdfUrl, setPdfUrl] = useState("");
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -39,10 +39,12 @@ export default function ReadPDF() {
   };
 
   const handleFileUpload = () => {
-    if (!pdfFile) {
-      setError("Please select a PDF file.");
-      return;
-    }
+    setError(null); // Reset the error state
+
+  if (!pdfFile) {
+    setError("Please select a PDF file.");
+    return;
+  }
 
     const reader = new FileReader();
 
@@ -67,7 +69,6 @@ export default function ReadPDF() {
 
   const onSubmit = (data) => {
     console.log(data);
-    // Handle form submission
   };
 
   return (
@@ -83,12 +84,6 @@ export default function ReadPDF() {
               <Controller
                 name="pdfFile"
                 control={control}
-                rules={{
-                  required: "Select a PDF.",
-                  validate: (value) =>
-                    value[0]?.type === "application/pdf" ||
-                    "Only PDF files are allowed.",
-                }}
                 render={({ field }) => (
                   <MuiFileInput
                     {...field}
@@ -117,7 +112,10 @@ export default function ReadPDF() {
               </Button>
             </div>
           </div>
-          <div className="flex mx-5 italic justify-center">
+          {!pdfFile && error && (
+            <span className="flex justify-around text-red-500 text-sm mx-5">{error}</span>
+          )}
+          <div className="flex mt-2 mx-5 italic justify-center">
             Tip: Since all your files are processed locally, smaller files are
             processed faster.
           </div>
