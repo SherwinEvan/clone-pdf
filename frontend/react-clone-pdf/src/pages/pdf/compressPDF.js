@@ -4,7 +4,8 @@ import { useForm, Controller } from "react-hook-form";
 import useRememberMe from "../../service/rememberMe";
 import NavBar from "../../components/navbar";
 import Footer from "../../components/footer";
-import FileUploadIcon from "@mui/icons-material/FileUpload";
+import CompressIcon from '@mui/icons-material/Compress';
+import DownloadIcon from '@mui/icons-material/Download';
 import { MuiFileInput } from "mui-file-input";
 import axios from "axios";
 
@@ -18,7 +19,6 @@ export default function CompressPDF() {
   } = useForm();
 
   const [pdfFile, setPDFFile] = useState(null);
-  const [pdfUrl, setPdfUrl] = useState("");
   const [uploadProgress, setUploadProgress] = useState(0);
   const [error, setError] = useState(null);
   const [compressedFile, setCompressedFile] = useState(null);
@@ -27,12 +27,21 @@ export default function CompressPDF() {
 
   const handleChange = (newFile) => {
     if (newFile && newFile.type === "application/pdf") {
-      setPDFFile(newFile);
-      setError(null);
-      setInitialSize(newFile.size);
+      if (newFile.size > 100 * 1024 * 1024) {
+        setPDFFile(null);
+        setError("Please select a PDF file smaller than 100MB.");
+        setInitialSize(0);
+        setCompressedSize(0);
+      } else {
+        setPDFFile(newFile);
+        setError(null);
+        setInitialSize(newFile.size);
+      }
     } else {
       setPDFFile(null);
       setError("Please select a PDF file.");
+      setInitialSize(0);
+      setCompressedSize(0);
     }
   };
 
@@ -45,11 +54,6 @@ export default function CompressPDF() {
     }
 
     const reader = new FileReader();
-
-    reader.onload = () => {
-      const uploadedPdfUrl = reader.result;
-      setPdfUrl(uploadedPdfUrl);
-    };
 
     reader.onerror = () => {
       setError("Error reading the PDF file.");
@@ -108,12 +112,10 @@ export default function CompressPDF() {
     console.log(data);
   };
 
-  const compressPdf = () => {};
-
   return (
     <div className="flex flex-col h-screen justify-between">
       <NavBar />
-      <div className="mb-auto">
+      <div className="mb-auto flex flex-col justify-between">
         <div className="text-2xl font-semibold text-center py-6">
           Compress a PDF File
         </div>
@@ -144,7 +146,7 @@ export default function CompressPDF() {
                 type="submit"
                 onClick={handleFileUpload}
                 variant="contained"
-                startIcon={<FileUploadIcon />}
+                startIcon={<CompressIcon />}
                 size="large"
               >
                 Compress PDF
@@ -156,30 +158,35 @@ export default function CompressPDF() {
               {error}
             </span>
           )}
-          <div className="flex mt-2 mx-5 italic justify-center">Tip: .</div>
+          <div className="flex mt-2 mx-5 italic justify-center">
+            Only PDF files that are less than 100MB are allowed
+          </div>
         </form>
       </div>
-      <div className="md:pt-10 md:mt-5 md:px-10 md:mx-5 mx-6 mt-5 shadow">
-        {uploadProgress > 0 && (
-          <LinearProgress variant="determinate" value={uploadProgress} />
-        )}
+      <div className="flex flex-col justify-evenly md:pt-5 md:mt-0 md:px-10 md:mx-5 mx-6 mt-5 shadow">
+        <div>
+          {uploadProgress > 0 && (
+            <LinearProgress variant="determinate" value={uploadProgress} />
+          )}
+        </div>
         {initialSize > 0 && compressedSize > 0 && (
-          <div>
-            <h2>File Sizes</h2>
-            <p>Initial Size: {formatFileSize(initialSize)}</p>
-            <p>Compressed Size: {formatFileSize(compressedSize)}</p>
+          <div className="mt-5 flex justify-around text-sm md:text-lg">
+            <p>Original File Size: {formatFileSize(initialSize)}</p>
+            <p>Compressed File Size: {formatFileSize(compressedSize)}</p>
             <p>Reduction: {getReductionPercentage()}%</p>
           </div>
         )}
         {compressedFile && (
-          <div>
-            <h2>Compressed PDF</h2>
-            <a
+          <div className="flex justify-center my-5">
+            <Button
+              variant="outlined"
+              startIcon={<DownloadIcon />}
+              size="large"
               href={URL.createObjectURL(compressedFile)}
               download={compressedFile.name}
             >
               Download Compressed PDF
-            </a>
+            </Button>
           </div>
         )}
       </div>
