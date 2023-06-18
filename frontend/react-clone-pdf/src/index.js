@@ -10,6 +10,7 @@ import Login from './pages/authentication/login';
 import ForgotPassword from './pages/authentication/forgotPassword';
 import MyAccount from './pages/authentication/myAccount';
 import ReadPDF from './pages/pdf/readPDF';
+import CompressPDF from './pages/pdf/compressPDF';
 
 axios.defaults.baseURL="http://localhost:8080/";
 axios.defaults.withCredentials = true;
@@ -25,6 +26,7 @@ export default function RouteApp() {
         <Route path="/forgotPassword" element={<ForgotPassword />} />
         <Route path="/account" element={<MyAccount />} />
         <Route path="/read" element={<ReadPDF />} />
+        <Route path="/compress" element={<CompressPDF />} />
       </Routes>
     </Router>
     <ToastContainer />
