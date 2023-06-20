@@ -3,5 +3,5 @@ export const navLinks = [
   { name: "Compress", link: "/compress" },
   { name: "Merge", link: "/merge" },
   { name: "Convert", link: "/" },
-  { name: "Sign", link: "/" },
+  { name: "Protect", link: "/encrypt" },
 ];
