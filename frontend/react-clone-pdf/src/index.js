@@ -12,7 +12,7 @@ import MyAccount from './pages/authentication/myAccount';
 import ReadPDF from './pages/pdf/readPDF';
 import CompressPDF from './pages/pdf/compressPDF';
 import MergePDFs from './pages/pdf/mergePDF';
-import EncryptPDF from './pages/pdf/encryptPDF';
+import ProtectPDF from './pages/pdf/protectPDF';
 
 axios.defaults.baseURL="http://localhost:8080/";
 axios.defaults.withCredentials = true;
@@ -30,7 +30,7 @@ export default function RouteApp() {
         <Route path="/read" element={<ReadPDF />} />
         <Route path="/compress" element={<CompressPDF />} />
         <Route path="/merge" element={<MergePDFs />} />
-        <Route path="/encrypt" element={<EncryptPDF />} />
+        <Route path="/protect" element={<ProtectPDF />} />
       </Routes>
     </Router>
     <ToastContainer />

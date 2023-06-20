@@ -12,11 +12,9 @@ import { IconButton } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import TextField from "@mui/material/TextField";
-import { PDFDocument } from "pdf-lib";
-import { jsPDF } from "jspdf";
+import axios from "axios";
 
-
-export default function EncryptPDF() {
+export default function ProtectPDF() {
   useRememberMe();
 
   const {
@@ -27,7 +25,6 @@ export default function EncryptPDF() {
   } = useForm();
 
   const [pdfFile, setPDFFile] = useState(null);
-  const [pdfUrl, setPdfUrl] = useState("");
   const [uploadProgress, setUploadProgress] = useState(0);
   const [error, setError] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -46,11 +43,6 @@ export default function EncryptPDF() {
       setError(null);
 
       const reader = new FileReader();
-
-      reader.onload = () => {
-        const uploadedPdfUrl = reader.result;
-        setPdfUrl(uploadedPdfUrl);
-      };
 
       reader.onerror = () => {
         setError("Error reading the PDF file.");
@@ -74,22 +66,35 @@ export default function EncryptPDF() {
   const handleEncrypt = async (data) => {
     try {
       const { password } = data;
-      const pdfData = await selectedFile.arrayBuffer();
-  
-      const pdfDoc = new jsPDF();
-      const pdfBlob = new Blob([pdfData], { type: "application/pdf" });
-      await pdfDoc.loadFile(pdfBlob);
-  
-      pdfDoc.encrypt(password, password);
-  
-      const encryptedBlob = await pdfDoc.output("blob");
-      setEncryptedFile(URL.createObjectURL(encryptedBlob));
+      const formData = new FormData();
+      formData.append("file", selectedFile);
+      formData.append("password", password);
+
+      const response = await axios.post(
+        "http://localhost:8081/pdf/protect",
+        formData,
+        {
+          responseType: "blob",
+        }
+      );
+
+      const fileName = `encrypted_${pdfFile.name}`;
+      const encryptedBlob = new Blob([response.data], {
+        type: "application/pdf",
+      });
+      const downloadUrl = URL.createObjectURL(encryptedBlob);
+      setEncryptedFile(downloadUrl);
       setShowDownloadButton(true);
+
+      const link = document.createElement("a");
+      link.href = downloadUrl;
+      link.download = fileName;
+      link.click();
     } catch (error) {
       console.error("Error encrypting PDF:", error);
     }
   };
-  
+
   const onSubmit = (data) => {
     handleEncrypt(data);
   };
@@ -146,7 +151,7 @@ export default function EncryptPDF() {
               startIcon={<DownloadIcon />}
               size="large"
               href={encryptedFile}
-              download="encrypted.pdf"
+              download={pdfFile ? `encrypted_${pdfFile.name}` : "encrypted.pdf"}
             >
               Download Encrypted PDF
             </Button>
@@ -154,9 +159,9 @@ export default function EncryptPDF() {
         )}
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex justify-center my-5 py-5 shadow-inner">
-          <div className="flex flex-col w-2/5 mb-5">
-            <div className="flex justify-center font-semibold text-lg pb-3">
+        <div className="flex justify-center md:my-5 md:py-5 shadow-inner">
+          <div className="flex flex-col md:w-2/4 md:mb-5">
+            <div className="flex justify-center font-semibold text-lg md:pb-3">
               Enter a password to encrypt the selected PDF
             </div>
             <div>
@@ -203,7 +208,8 @@ export default function EncryptPDF() {
                   required: "Confirm Password is required.",
                   validate: {
                     matchesPassword: (value) =>
-                      value === getValues().password || "Passwords do not match.",
+                      value === getValues().password ||
+                      "Passwords do not match.",
                   },
                 }}
                 render={({ field }) => (

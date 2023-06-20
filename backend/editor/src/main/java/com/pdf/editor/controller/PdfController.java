@@ -77,5 +77,4 @@ public class PdfController {
 	    response.setHeader("Content-Disposition", "attachment; filename=protected.pdf");
 	    FileCopyUtils.copy(outputStream.toByteArray(), response.getOutputStream());
 	}
-
 }
