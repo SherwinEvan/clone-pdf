@@ -4,7 +4,7 @@ import { useForm, Controller } from "react-hook-form";
 import useRememberMe from "../../service/rememberMe";
 import NavBar from "../../components/navbar";
 import Footer from "../../components/footer";
-import FileUploadIcon from "@mui/icons-material/FileUpload";
+import OpenInBrowserIcon from "@mui/icons-material/OpenInBrowser";
 import { MuiFileInput } from "mui-file-input";
 import { Viewer } from "@react-pdf-viewer/core";
 import { Worker } from "@react-pdf-viewer/core";
@@ -41,10 +41,10 @@ export default function ReadPDF() {
   const handleFileUpload = () => {
     setError(null); // Reset the error state
 
-  if (!pdfFile) {
-    setError("Please select a PDF file.");
-    return;
-  }
+    if (!pdfFile) {
+      setError("Please select a PDF file.");
+      return;
+    }
 
     const reader = new FileReader();
 
@@ -105,15 +105,17 @@ export default function ReadPDF() {
                 type="submit"
                 onClick={handleFileUpload}
                 variant="contained"
-                startIcon={<FileUploadIcon />}
+                startIcon={<OpenInBrowserIcon />}
                 size="large"
               >
-                Upload PDF
+                Read PDF
               </Button>
             </div>
           </div>
           {!pdfFile && error && (
-            <span className="flex justify-around text-red-500 text-sm mx-5">{error}</span>
+            <span className="flex justify-around text-red-500 text-sm mx-5">
+              {error}
+            </span>
           )}
           <div className="flex mt-2 mx-5 italic justify-center">
             Tip: Since all your files are processed locally, smaller files are
