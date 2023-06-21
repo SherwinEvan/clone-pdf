@@ -85,7 +85,7 @@ export default function ProtectPDF() {
       const downloadUrl = URL.createObjectURL(encryptedBlob);
       setEncryptedFile(downloadUrl);
       setShowDownloadButton(true);
-
+      
       const link = document.createElement("a");
       link.href = downloadUrl;
       link.download = fileName;
