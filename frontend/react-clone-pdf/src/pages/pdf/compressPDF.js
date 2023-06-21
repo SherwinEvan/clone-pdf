@@ -6,6 +6,7 @@ import NavBar from "../../components/navbar";
 import Footer from "../../components/footer";
 import CompressIcon from '@mui/icons-material/Compress';
 import DownloadIcon from '@mui/icons-material/Download';
+import { toast } from "react-toastify";
 import { MuiFileInput } from "mui-file-input";
 import axios from "axios";
 
@@ -91,6 +92,21 @@ export default function CompressPDF() {
         setCompressedSize(compressedFile.size);
       } catch (error) {
         console.error("Error compressing PDF:", error);
+        toast.error(
+          <div>
+            Server error! <br /> Please try again later.
+          </div>,
+          {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          }
+        );
       }
     }
   };

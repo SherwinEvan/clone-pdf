@@ -11,6 +11,7 @@ import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 import { IconButton } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { toast } from "react-toastify";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
 
@@ -92,6 +93,21 @@ export default function ProtectPDF() {
       link.click();
     } catch (error) {
       console.error("Error encrypting PDF:", error);
+      toast.error(
+        <div>
+          Server error! <br /> Please try again later.
+        </div>,
+        {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        }
+      );
     }
   };
 
@@ -233,7 +249,6 @@ export default function ProtectPDF() {
             <Button
               type="submit"
               fullWidth
-              color="error"
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
               disabled={!isFileSelected}
