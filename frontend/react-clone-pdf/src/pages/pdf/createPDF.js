@@ -126,7 +126,7 @@ export default function CreatePDF() {
       <NavBar />
       <div className="mb-auto flex flex-col justify-between">
         <div className="text-2xl font-semibold text-center py-6">
-          Create PDF from Images
+          Create a PDF from Images
         </div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex mx-5 py-3 space-x-10 items-center justify-center">

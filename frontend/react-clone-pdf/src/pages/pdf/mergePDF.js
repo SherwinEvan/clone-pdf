@@ -167,7 +167,26 @@ export default function CompressPDF() {
           </div>
         </form>
       </div>
-
+      <div className="flex flex-col justify-evenly md:pt-5 md:mt-0 md:px-10 md:mx-5 mx-6 mt-5 shadow">
+        <div>
+          {uploadProgress > 0 && (
+            <LinearProgress variant="determinate" value={uploadProgress} />
+          )}
+        </div>
+        {mergedFile && (
+          <div className="flex justify-center my-5">
+            <Button
+              variant="outlined"
+              startIcon={<DownloadIcon />}
+              size="large"
+              href={URL.createObjectURL(mergedFile)}
+              download={`merged_${Date.now()}.pdf`}
+            >
+              Download Merged PDF
+            </Button>
+          </div>
+        )}
+      </div>
       <div>
         {pdfFile.length > 0 && (
           <div className="my-5 mx-5 md:mx-12 md:px-12">
@@ -199,27 +218,6 @@ export default function CompressPDF() {
                 ))}
               </tbody>
             </table>
-          </div>
-        )}
-      </div>
-
-      <div className="flex flex-col justify-evenly md:pt-5 md:mt-0 md:px-10 md:mx-5 mx-6 mt-5 shadow">
-        <div>
-          {uploadProgress > 0 && (
-            <LinearProgress variant="determinate" value={uploadProgress} />
-          )}
-        </div>
-        {mergedFile && (
-          <div className="flex justify-center my-5">
-            <Button
-              variant="outlined"
-              startIcon={<DownloadIcon />}
-              size="large"
-              href={URL.createObjectURL(mergedFile)}
-              download={`merged_${Date.now()}.pdf`}
-            >
-              Download Merged PDF
-            </Button>
           </div>
         )}
       </div>
