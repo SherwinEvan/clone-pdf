@@ -4,8 +4,8 @@ import Button from "@mui/material/Button";
 import { navLinks } from "../data/navlinks";
 import GetUser from "../service/getUser";
 import { mainIcon } from "../data/logo";
-import BurgerMenu from "../assests/BurgerMenu.png";
-import BurgerMenuClose from "../assests/BurgerMenuClose.png";
+import BurgerMenu from "../assets/BurgerMenu.png";
+import BurgerMenuClose from "../assets/BurgerMenuClose.png";
 import DeleteSessionCookie from "../service/deleteSessionCookie";
 
 function handleLogout() {

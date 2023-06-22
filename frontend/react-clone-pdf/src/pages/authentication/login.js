@@ -19,7 +19,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import DeleteSessionCookie from "../../service/deleteSessionCookie";
-import loginBG from "../../assests/loginBG.jpg";
+import loginBG from "../../assets/loginBG.jpg";
 import NavBar from "../../components/navbar";
 import Footer from "../../components/footer";
 import { saveRememberMePreference } from "../../service/rememberMe.js";

@@ -20,7 +20,7 @@ export default function Footer() {
               <span className="ml-2 text-lg md:text-xl font-bold">{main.name}</span>
             </Link>
           ))}
-          <div className="pl-[2px] mt-4 md:mt-5">PDF made easy.</div>
+          <div className="mt-4 md:mt-5">PDF made easy.</div>
         </div>
 
         <div className="md:flex flex-col md:mb-0 mb-5">
