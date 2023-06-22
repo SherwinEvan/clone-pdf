@@ -1,6 +1,6 @@
-import linkedin from "../assests/linkedin.png";
-import mail from "../assests/mail.png";
-import github from "../assests/github.png";
+import linkedin from "../assets/linkedin.png";
+import mail from "../assets/mail.png";
+import github from "../assets/github.png";
 
 export const socialsIcon = [
   { alt: "linkedin", icon: linkedin, link: "/" },
