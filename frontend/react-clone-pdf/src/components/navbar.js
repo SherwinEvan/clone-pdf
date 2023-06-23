@@ -30,7 +30,11 @@ export default function NavBar() {
 
   return (
     <nav className="shadow-md w-full relative">
-      <div className="flex items-center justify-between bg-white py-4 px-10">
+      <div
+        className={`flex items-center justify-between bg-white py-4 pl-10 ${
+          currUser === "Guest" ? "pr-10" : "pr-5"
+        }`}
+      >
         <div className="flex items-center">
           {mainIcon.map((main) => (
             <Link to={main.link} className="flex cursor-pointer items-center">
@@ -78,7 +82,7 @@ export default function NavBar() {
               </Link>
             </li>
           ))}
-          {!isLoading ? (
+          {!isLoading && (
             <li>
               <div className="md:hidden">
                 {currUser === "Guest" || currUser === "Error" ? (
@@ -87,26 +91,31 @@ export default function NavBar() {
                   </Button>
                 ) : (
                   <div className="relative">
-                    <p className="group">
-                      <span className="opacity-100 group-hover:opacity-0 transition-opacity">
+                    <p className="group flex items-center">
+                      <span
+                        className="cursor-pointer"
+                        onClick={() => {
+                          window.location.href = "/account";
+                        }}
+                      >
                         Hello {currUser}
                       </span>
-                      <span
-                        className="absolute left-0 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+                      <Button
+                        className="ml-2"
+                        variant="outlined"
+                        size="small"
                         onClick={handleLogout}
                       >
                         Logout
-                      </span>
+                      </Button>
                     </p>
                   </div>
                 )}
               </div>
             </li>
-          ) : (
-            <li className="md:hidden">Syncing...</li>
           )}
         </ul>
-        {!isLoading ? (
+        {!isLoading && (
           <div className="hidden md:block">
             {currUser === "Guest" || currUser === "Error" ? (
               <Button fullWidth variant="contained">
@@ -115,21 +124,22 @@ export default function NavBar() {
             ) : (
               <div className="relative">
                 <p className="group">
-                  <span className="opacity-100 group-hover:opacity-0 transition-opacity">
-                    Hello {currUser}
+                  <span className="mr-5">
+                    <a href="/account">Hello {currUser}</a>
                   </span>
-                  <span
-                    className="absolute left-0 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
-                    onClick={handleLogout}
-                  >
-                    Logout
+                  <span span className="">
+                    <Button
+                      className=""
+                      variant="outlined"
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </Button>
                   </span>
                 </p>
               </div>
             )}
           </div>
-        ) : (
-          <div className="hidden md:block">Syncing...</div>
         )}
       </div>
     </nav>

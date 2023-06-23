@@ -25,7 +25,6 @@ export default function MyAccount() {
     reset: resetResetPasswordForm,
     control: resetPasswordControl,
   } = useForm();
-  
 
   const {
     handleSubmit: handleDeleteAccountSubmit,
@@ -196,56 +195,57 @@ export default function MyAccount() {
   };
 
   const onDeleteAccountSubmit = async (data) => {
-  if (data.deleteUsername !== currUser) {
-    return;
-  }
-  try {
-    const deleteData = {
-      userName: currUser
-    };
+    if (data.deleteUsername !== currUser) {
+      return;
+    }
+    try {
+      const deleteData = {
+        userName: currUser,
+      };
 
-    console.log(deleteData)
+      console.log(deleteData);
 
-    const deleteUserResponse = await axios.delete("/logout/delete", { data: deleteData });
-    await toast.promise(Promise.resolve(deleteUserResponse), {
-      pending: "Authenticating...",
-      success: deleteUserResponse.data,
-      error: deleteUserResponse.data,
-      position: "top-center",
-      autoClose: 2750,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-
-    DeleteSessionCookie();
-    setTimeout(() => (window.location = "/"), 2250);
-  } catch (error) {
-    console.log(error);
-    toast.error(
-      <div>
-        Server error! <br /> Please try again later.
-      </div>,
-      {
+      const deleteUserResponse = await axios.delete("/logout/delete", {
+        data: deleteData,
+      });
+      await toast.promise(Promise.resolve(deleteUserResponse), {
+        pending: "Authenticating...",
+        success: deleteUserResponse.data,
+        error: deleteUserResponse.data,
         position: "top-center",
-        autoClose: 3000,
+        autoClose: 2750,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
         theme: "light",
-      }
-    );
-  } finally {
-    resetDeleteAccountForm();
-    handleModalClose();
-  }
-};
+      });
 
+      DeleteSessionCookie();
+      setTimeout(() => (window.location = "/"), 2250);
+    } catch (error) {
+      console.log(error);
+      toast.error(
+        <div>
+          Server error! <br /> Please try again later.
+        </div>,
+        {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        }
+      );
+    } finally {
+      resetDeleteAccountForm();
+      handleModalClose();
+    }
+  };
 
   return (
     <div className="flex flex-col h-screen justify-between">
@@ -375,6 +375,12 @@ export default function MyAccount() {
               size="large"
               color="error"
               onClick={handleModalOpen}
+              sx={{
+                "&:hover": {
+                  backgroundColor: "#c9190c",
+                  color: "#FFFFFF",
+                },
+              }}
             >
               Delete your account
             </Button>
@@ -391,7 +397,9 @@ export default function MyAccount() {
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                   <div className="italic">This action cannot be undone!</div>
                 </Typography>
-                <form onSubmit={handleDeleteAccountSubmit(onDeleteAccountSubmit)}>
+                <form
+                  onSubmit={handleDeleteAccountSubmit(onDeleteAccountSubmit)}
+                >
                   <div className="mt-5">
                     <Controller
                       name="deleteUsername"
@@ -414,7 +422,9 @@ export default function MyAccount() {
                           color="warning"
                           focused
                           error={!!deleteAccountErrors.deleteUsername}
-                          helperText={deleteAccountErrors.deleteUsername?.message}
+                          helperText={
+                            deleteAccountErrors.deleteUsername?.message
+                          }
                         />
                       )}
                     />
