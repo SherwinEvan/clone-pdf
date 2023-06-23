@@ -17,7 +17,7 @@ Built with ReactJS, TailwindCSS, Spring Boot, MySQL, Git.
   - [jsonwebtoken](https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/oauth2/jwt/Jwt.html)
   - [Project Lombok](https://projectlombok.org/)
   - [iTextPDF](https://itextpdf.com/)
-    [Bouncy Castle](https://www.bouncycastle.org/)
+  - [Bouncy Castle](https://www.bouncycastle.org/)
 
 ## Getting Started
 
