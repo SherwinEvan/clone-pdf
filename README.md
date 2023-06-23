@@ -8,11 +8,11 @@ Built with ReactJS, TailwindCSS, Spring Boot, MySQL, Git.
 ## Built With
 
   - [MaterialUI](https://mui.com/core/)
+  - [TailwindCSS](https://tailwindcss.com/)
   - [React-pdf](https://react-pdf.org/)
   - [PDF-LIB](https://pdf-lib.js.org/)
   - [file-saver](https://www.npmjs.com/package/file-saver)
   - [Axios](https://axios-http.com/docs/intro)
-  - [TailwindCSS](https://tailwindcss.com/)
   - [Spring Security](https://docs.spring.io/spring-security/reference/index.html)
   - [jsonwebtoken](https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/oauth2/jwt/Jwt.html)
   - [Project Lombok](https://projectlombok.org/)
@@ -41,8 +41,10 @@ Execute the following command.
     npm start
 
 Open the backend folder as a project in Spring Tool Suite.
-Change the MySQL user name, password and database to match the one in your machine in the application.properties file.
-Right click on the package and select Run as Spring Boot App
+<br />
+Change the MySQL user name, password and database to match the one in your machine's, in the application.properties file.
+<br />
+Right click on the package and select Run as Spring Boot App.
 
 
 
