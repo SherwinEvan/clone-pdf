@@ -1,5 +1,5 @@
 
-# # ClonePDF
+# ClonePDF
 
 
 # Overview
@@ -51,4 +51,16 @@ The frontend of the authentication system is developed using ReactJS, a popular 
 - **MaterialUI Components:** The frontend utilizes custom styled MaterialUI components to achieve an aesthetically pleasing and intuitive user interface. These components enhance the visual appeal and usability of the authentication system.
 
 - **Form Validation with React Hook Form:** Strict form validation is implemented using the React Hook Form library. This ensures that users provide accurate and valid information during registration, login, and password reset processes.
+
+## Sample Images
+![alt-text](https://github.com/SherwinEvan/clone-pdf/blob/b8102bfd029c8dc57586b947422a5bccc4d53ed8/images/home.png)
+![alt-text](https://github.com/SherwinEvan/clone-pdf/blob/b8102bfd029c8dc57586b947422a5bccc4d53ed8/images/readpdf.png)
+![alt-text](https://github.com/SherwinEvan/clone-pdf/blob/b8102bfd029c8dc57586b947422a5bccc4d53ed8/images/createpdf.png)
+![alt-text](https://github.com/SherwinEvan/clone-pdf/blob/b8102bfd029c8dc57586b947422a5bccc4d53ed8/images/mergepdfs.png)
+![alt-text](https://github.com/SherwinEvan/clone-pdf/blob/b8102bfd029c8dc57586b947422a5bccc4d53ed8/images/compresspdf.png)
+![alt-text](https://github.com/SherwinEvan/clone-pdf/blob/b8102bfd029c8dc57586b947422a5bccc4d53ed8/images/protectpdf.png)
+![alt-text](https://github.com/SherwinEvan/clone-pdf/blob/b8102bfd029c8dc57586b947422a5bccc4d53ed8/images/mobilehome.png)
+![alt-text](https://github.com/SherwinEvan/clone-pdf/blob/b8102bfd029c8dc57586b947422a5bccc4d53ed8/images/mobilenavbar.png)
+![alt-text](https://github.com/SherwinEvan/clone-pdf/blob/b8102bfd029c8dc57586b947422a5bccc4d53ed8/images/mobilecreatepdf.png)
+
 
