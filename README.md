@@ -1,10 +1,10 @@
 
-# TinyPDF
+# ClonePDF
 
 
 # Overview
 
-- TinyPDF is a web application inspired by SmallPDF with a touch of with personalization.
+- ClonePDF is a web application inspired by SmallPDF with a touch of with personalization.
 - Has the option for reading, creating, merging, compressing, and encrypting PDF files.
 - Smaller PDF operations like reading, creating, and merging are performed in the browser.
 - Backend processing for larger tasks (compression, encryption) using Java on a Spring Boot server.
